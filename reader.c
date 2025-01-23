@@ -140,10 +140,8 @@ void main(void) {
         if (bitLen == 0) {
             usleep(5000);
         } else {
-            //char data[100];
             unsigned long long datai;
             char string1[100];
-            //bitLen = wiegandReadData((void *)data, 100);
             bitLen = wiegandReadDataInt(&datai);
             int bytes = bitLen / 8 + 1;
             FILE *fp;
@@ -152,16 +150,14 @@ void main(void) {
             fprintf(fp, "%lu ", (unsigned long)time(NULL));
             printf("Read %d bits (%d bytes): ", bitLen, bytes);
             fprintf(fp, "Read %d bits (%d bytes): ", bitLen, bytes);
-            for (i = 0; i < bytes; i++)
-                printf("%02X", (datai >> 8*(bytes - i)) & 0xFF);
-            for (i = 0; i < bytes; i++)
-                fprintf(fp, "%02X", (datai >> 8*(bytes - i)) & 0xFF);
+            printf("%0*llX", bitLen / 4 + 1, datai);
+            fprintf(fp, "%0*llX", bitLen / 4 + 1, datai);
 
             printf(" : ");
             fprintf(fp, " : ");
             fclose(fp);
             for (i = 0; i < bitLen; i++)
-                  printf("%d", (datai >> (bitLen - i)) & 1 ? 1 : 0);
+                  printf("%d", (datai >> (bitLen - i - 1)) & 1 ? 1 : 0);
             fp = fopen("output","a");
             printf("\n");
             fprintf(fp, "\n");
