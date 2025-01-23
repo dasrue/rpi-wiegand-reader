@@ -12,7 +12,7 @@ Use this repository to read RFID cards with the Raspberry Pi.
 
 To compile:
 ```sh
-$ gcc -lpthread -lwiringPi -lrt reader.c -o reader.o
+$ gcc reader.c -o reader -lpigpio
 ```
 
 ## Sample output:
